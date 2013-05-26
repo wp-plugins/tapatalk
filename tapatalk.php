@@ -1,18 +1,18 @@
 <?php
 /*
-Plugin Name: Tapatalk Blog Api
-Description: Tapatalk Blog Api.
-Version: 1.0.0
+Plugin Name: Tapatalk for WordPress
+Description: Tapatalk for WordPress Plugin enables Tapatalk Community Reader to integrate WordPress Blogs and Forums into a single mobile app.
+Version: 1.0
 Author: Tapatalk
 Author URI: http://www.tapatalk.com/
-Plugin URI: http://www.tapatalk.com/
-License: MIT License
-License URI: http://opensource.org/licenses/MIT
+Plugin URI: http://www.tapatalk.com/activate_tapatalk.php
+License:  GNU General Public License v2
+License URI: http://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses
 */
 
 class Tapatalk {
 	
-	public $version    = '1.0.0';  //plugin's version
+	public $version    = '1.0';  //plugin's version
 	public $method; //request method;
 	
 	/**
@@ -33,13 +33,10 @@ class Tapatalk {
 		$this->basename   = plugin_basename( $this->file );
 		$this->plugin_dir = plugin_dir_path( $this->file );
 		$this->wp_dir     = dirname(dirname(dirname(dirname($this->file))));
-
-		$this->plugin_url = apply_filters( 'bbp_plugin_dir_url',   plugin_dir_url ( $this->file ) );
-
+		
 		// Includes
 		$this->includes_dir = trailingslashit( $this->plugin_dir . 'includes'  );
-		$this->includes_url = trailingslashit( $this->plugin_url . 'includes'  );
-		$this->method = isset($_REQUEST['tapatalk']) ? trim($_REQUEST['tapatalk']) : '';
+		$this->method       = isset($_REQUEST['tapatalk']) ? trim($_REQUEST['tapatalk']) : '';
 	}
 	
 	/**

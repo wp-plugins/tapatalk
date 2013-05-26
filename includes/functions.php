@@ -287,3 +287,31 @@ function ttwp_comments()
     
     tt_json_response($response);
 }
+
+function ttwp_login()
+{
+	if(empty($_REQUEST['username']) || empty($_REQUEST['password']))
+	{
+		tt_json_error(-32602);
+	}
+	$username = trim($_REQUEST['username']);
+	$password = trim($_REQUEST['password']);
+	if(!is_user_logged_in())
+	{
+        $credentials = array(
+            'user_login' => $username,
+            'user_password' => $password,
+            'remember' => true
+        );
+        $user = wp_signon($credentials, false);
+        if(is_wp_error($user)){
+        	$error_msg = $user->get_error_messages();
+        	tt_json_error(0,strip_tags($error_msg[0]));
+        }
+	}
+	else 
+	{
+		$user = wp_get_current_user();
+	}
+	tt_json_response($user);
+}
