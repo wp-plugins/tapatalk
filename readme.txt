@@ -23,9 +23,9 @@ Interested to learn more? Download our mobile app or visit our website at http:/
 == Installation ==
 
 1. Install from either the WordPress.org Plugin Directory, or by manually uploading the files to your server
-1. Activate the Plugin from the 'Plugins' menu in WordPress Admin Console
-1. Login to Tapatalk Forum Owner Area (tapatalk.com) to enable WordPress module by entering your WordPress top level URL
-1. The Blogs will appear on Tapatalk app within 24 hours, usually in next app restart.
+2. Activate the Plugin from the 'Plugins' menu in WordPress Admin Console
+3. Login to Tapatalk Forum Owner Area (tapatalk.com) to enable WordPress module by entering your WordPress top level URL
+4. The Blogs will appear on Tapatalk app within 24 hours, usually in next app restart.
 
 == Frequently Asked Questions ==
 
