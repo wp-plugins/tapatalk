@@ -1,6 +1,5 @@
 <?php
 
-
 function tt_json_error($code, $message = '', $data = array())
 {
     $default = array(
@@ -11,16 +10,16 @@ function tt_json_error($code, $message = '', $data = array())
         '-32602' => 'Invalid params',
         '-32603' => 'Internal error',
     );
-    
+
     if (isset($default[$code])) $message = $default[$code];
-    
+
     $error = array(
         'code'      => $code,
         'message'   => $message,
     );
-    
+
     if ($data) $error['data'] = $data;
-    
+
     tt_json_response($error, 0);
 }
 
@@ -41,7 +40,7 @@ function tt_json_response($data, $type = 1)
 function tt_get_avatar_by_uid($uid)
 {
     if (empty($uid)) return '';
-    
+
     return preg_replace("/^.*src='([^']*?)'.*$/", '$1', get_avatar($uid));
 }
 
@@ -61,7 +60,7 @@ function tt_post_html_clean($str)
     $str = str_replace("\r\n", '<br />', $str );
     $str = str_replace(array("\r", "\n"), '<br />', $str );
     $str = preg_replace('/>\s+</si', '><', $str);
-    
+
     $search = array(
         "/<strong>(.*?)<\/strong>/si",
         "/<em>(.*?)<\/em>/si",
@@ -71,7 +70,7 @@ function tt_post_html_clean($str)
         "/<a .*?href=\"(.*?)\".*?>(.*?)<\/a>/si",
         "/<script( [^>]*)?>([^<]*?)<\/script>/si",
     );
-    
+
     $replace = array(
         '<b>$1</b>',
         '<i>$1</i>',
@@ -81,10 +80,10 @@ function tt_post_html_clean($str)
         '[url=$1]$2[/url]',
         '',
     );
-    
+
     $str = preg_replace($search, $replace, $str);
     $str = strip_tags($str, '<br><i><b><u>');
-    
+
     return $str;
 }
 
@@ -104,18 +103,18 @@ function tt_add_timestamp_filter($where, $object = '')
 function tt_get_post_count($cat = '', $timestemp = 0)
 {
     global $wpdb;
-    
+
     if ($cat || $timestemp)
     {
         $user = wp_get_current_user();
-        
+
         if ($cat)
         {
             $term = get_term($cat, 'category');
-            $query = "SELECT post_status, COUNT( * ) AS num_posts 
-                      FROM $wpdb->term_relationships INNER JOIN $wpdb->posts ON object_id = ID 
+            $query = "SELECT post_status, COUNT( * ) AS num_posts
+                      FROM $wpdb->term_relationships INNER JOIN $wpdb->posts ON object_id = ID
                       WHERE term_taxonomy_id = '{$term->term_taxonomy_id}'";
-            
+
             if ($timestemp)
             {
                 $query .= " AND UNIX_TIMESTAMP(post_date_gmt) > $timestemp";
@@ -125,34 +124,34 @@ function tt_get_post_count($cat = '', $timestemp = 0)
         {
             $query = "SELECT post_status, COUNT( * ) AS num_posts FROM {$wpdb->posts} WHERE UNIX_TIMESTAMP(post_date_gmt) > $timestemp";
         }
-        
+
         if ( is_user_logged_in() ) {
             $post_type_object = get_post_type_object('post');
             if ( !current_user_can( $post_type_object->cap->read_private_posts ) ) {
                 $query .= " AND (post_status != 'private' OR ( post_author = '$user->ID' AND post_status = 'private' ))";
             }
         }
-        
+
         $query .= ' GROUP BY post_status';
         $count = $wpdb->get_results( $wpdb->prepare( $query, 'post' ), ARRAY_A );
         $stats = array();
         foreach ( get_post_stati() as $state )
             $stats[$state] = 0;
-        
+
         foreach ( (array) $count as $row )
             $stats[$row['post_status']] = $row['num_posts'];
-        
+
         $numposts = (object) $stats;
     }
     else
     {
         $numposts = wp_count_posts('post', 'readable');
     }
-    
+
     $total = $numposts->publish;
     if (is_user_logged_in())
         $total += $numposts->private;
-    
+
     return $total;
 }
 
@@ -173,7 +172,7 @@ function tt_my_json_encode($a=false)
     if (is_null($a)) return 'null';
     if ($a === false) return 'false';
     if ($a === true) return 'true';
-    
+
     if (is_scalar($a))
     {
         if (is_float($a))
@@ -181,7 +180,7 @@ function tt_my_json_encode($a=false)
             // Always use "." for floats.
             return floatval(str_replace(",", ".", strval($a)));
         }
-        
+
         if (is_string($a))
         {
             static $jsonReplaces = array(array("\\", "/", "\n", "\t", "\r", "\b", "\f", '"'), array('\\\\', '\\/', '\\n', '\\t', '\\r', '\\b', '\\f', '\"'));
@@ -190,7 +189,7 @@ function tt_my_json_encode($a=false)
         else
         return $a;
     }
-    
+
     $isList = true;
     for ($i = 0, reset($a); $i < count($a); $i++, next($a))
     {
@@ -200,7 +199,7 @@ function tt_my_json_encode($a=false)
             break;
         }
     }
-    
+
     $result = array();
     if ($isList)
     {
