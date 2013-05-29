@@ -2,26 +2,21 @@
 
 function ttwp_config()
 {
-    $wp_loaded = defined('WP_ROOT');
-    
+    global $wp_version, $tapatalk;
+
     $response = array(
-        'version' => '1.0.0_beta_1',
+        'version' => $tapatalk->version,
         'support' => $wp_loaded,
+        'wp_version' => $wp_version,
     );
-    
-    if ($wp_loaded && file_exists(WP_ROOT . '/wp-includes/version.php'))
-    {
-        include(WP_ROOT . '/wp-includes/version.php');
-        $response['wp_version'] = $wp_version;
-    }
-    
+
     tt_json_response($response);
 }
 
 function ttwp_category()
 {
     $categories = get_terms('category');
-    
+
     $response = array();
     foreach ($categories as $category)
     {
@@ -32,7 +27,7 @@ function ttwp_category()
             'parent'    => $category->parent,
         );
     }
-    
+
     do {
         $category_num_start = count($response);
         foreach($response as $cat_id => &$category)
@@ -46,7 +41,7 @@ function ttwp_category()
                     break;
                 }
             }
-            
+
             if ($is_leaf && isset($response[$category['parent']]))
             {
                 $response[$category['parent']]['child'][] = $category;
@@ -55,39 +50,39 @@ function ttwp_category()
         }
         $category_num_end = count($response);
     } while($category_num_start > $category_num_end);
-    
+
     tt_json_response(array_values($response));
 }
 
 function ttwp_blogs()
 {
     global $wp_query, $post, $wpdb, $tt_timestamp_filter;
-    
+
     $args = array(
         'offset'                => isset($_GET['page']) ? ($_GET['page'] - 1) * (isset($_GET['perpage']) ? $_GET['perpage'] : 20) : 0,
         'posts_per_page'        => isset($_GET['perpage']) ? $_GET['perpage'] : 20,
         'cat'                   => isset($_GET['category']) ? $_GET['category'] : '',
         'ignore_sticky_posts'   => true,
     );
-    
+
     $tt_timestamp_filter = isset($_GET['newer']) ? intval($_GET['newer']) : 0;
-    
+
     if ($tt_timestamp_filter)
     {
         add_filter('posts_where', 'tt_add_timestamp_filter', 10, 2);
     }
-    
+
     $myposts = $wp_query->query($args);
-    
+
     $image_preview_type = isset($_GET['preview']) ? $_GET['preview'] : 'full';
-    
+
     $response_posts = array();
     foreach( $myposts as $post )
     {
         setup_postdata($post);
         $authordata = get_userdata($post->post_author);
         $content = get_the_content(false);
-        
+
         // get the first image associated with the post
         $image_url = '';
         $args_a = array(
@@ -101,7 +96,7 @@ function ttwp_blogs()
         if ($attachments)
         {
             $first_image = $attachments[0];
-            
+
             switch ($image_preview_type)
             {
                 case 'thumbnail':
@@ -111,11 +106,11 @@ function ttwp_blogs()
                     $image_src = wp_get_attachment_image_src($first_image->ID, 'full');
                     break;
             }
-            
+
             if (is_array($image_src) && !empty($image_src))
                 $image_url = $image_src[0];
         }
-        
+
         $categories = wp_get_post_categories($post->ID, array('fields' => 'all_with_object_id'));
         $response_category = array();
         foreach($categories as $category)
@@ -127,7 +122,7 @@ function ttwp_blogs()
                 'parent'    => $category->parent,
             );
         }
-        
+
         $response_posts[] = array(
             'blog_id'       => $post->ID,
             'title'         => $post->post_title,
@@ -146,34 +141,34 @@ function ttwp_blogs()
         );
     }
     unset($post);
-    
+
     $response = array(
         'total' => tt_get_post_count($args['cat'], $tt_timestamp_filter),
         'blogs' => $response_posts,
     );
-    
+
     tt_json_response($response);
 }
 
 function ttwp_blog()
 {
     global $post;
-    
+
     if (!isset($_GET['blog_id']) || empty($_GET['blog_id']))
         tt_json_error(-32602, '', array('file' => __FILE__, 'line' => __LINE__, 'params' => $_GET));
-    
+
     $response = array();
-    
+
     $blog_id = intval($_GET['blog_id']);
     $post = get_post($blog_id);
-    
+
     if (empty($post) || empty($post->ID))
         tt_json_error(-32602, '', array('file' => __FILE__, 'line' => __LINE__, 'params' => $_GET));
-    
+
     $post->post_content = preg_replace('/<!--more(.*?)?-->/', '', $post->post_content);
     setup_postdata($post);
     $authordata = get_userdata($post->post_author);
-    
+
     $categories = wp_get_post_categories($post->ID, array('fields' => 'all_with_object_id'));
     $response_category = array();
     foreach($categories as $category)
@@ -185,11 +180,11 @@ function ttwp_blog()
             'parent'    => $category->parent,
         );
     }
-    
-    
+
+
     $prev_blog = get_adjacent_post();
     $next_blog = get_adjacent_post(false, '', false);
-    
+
     $response_blog = array(
         'blog_id'       => $post->ID,
         'title'         => $post->post_title,
@@ -210,11 +205,11 @@ function ttwp_blog()
         'next_title'    => $next_blog->post_title,
     );
     $response['blog'] = $response_blog;
-    
+
     if ($post->comment_count > 0 && isset($_GET['perpage']) && $_GET['perpage'] > 0)
     {
         $response_comments = array();
-        
+
         $args = array(
             'post_id'   => $post->ID,
             'status'    => 'approve',           // approve/hold/spam/trash
@@ -223,7 +218,7 @@ function ttwp_blog()
             'offset'    => 0,
         );
         $comments = get_comments($args);
-        
+
         foreach($comments as $comment)
         {
             $response_comments[] = array(
@@ -238,20 +233,20 @@ function ttwp_blog()
                 'status'        => $comment->comment_approved,
             );
         }
-        
+
         $response['commonts'] = $response_comments;
     }
-    
+
     tt_json_response($response);
 }
 
 function ttwp_comments()
 {
     $response_comments = array();
-    
+
     if (!isset($_GET['blog_id']) || empty($_GET['blog_id']))
         tt_json_error(-32602, '', array('file' => __FILE__, 'line' => __LINE__, 'params' => $_GET));
-    
+
     if ($total = get_comments('count=1&post_id='.$_GET['blog_id']))
     {
         $args = array(
@@ -262,7 +257,7 @@ function ttwp_comments()
             'offset'    => isset($_GET['page']) ? ($_GET['page'] - 1) * (isset($_GET['perpage']) ? $_GET['perpage'] : 20) : 0,
         );
         $comments = get_comments($args);
-        
+
         foreach($comments as $comment)
         {
             $response_comments[] = array(
@@ -279,25 +274,26 @@ function ttwp_comments()
             );
         }
     }
-    
+
     $response = array(
         'total'     => $total,
         'commonts'  => $response_comments,
     );
-    
+
     tt_json_response($response);
 }
 
+/*
 function ttwp_login()
 {
-	if(empty($_REQUEST['username']) || empty($_REQUEST['password']))
-	{
-		tt_json_error(-32602);
-	}
-	$username = trim($_REQUEST['username']);
-	$password = trim($_REQUEST['password']);
-	if(!is_user_logged_in())
-	{
+    if(empty($_REQUEST['username']) || empty($_REQUEST['password']))
+    {
+        tt_json_error(-32602);
+    }
+    $username = trim($_REQUEST['username']);
+    $password = trim($_REQUEST['password']);
+    if(!is_user_logged_in())
+    {
         $credentials = array(
             'user_login' => $username,
             'user_password' => $password,
@@ -305,13 +301,14 @@ function ttwp_login()
         );
         $user = wp_signon($credentials, false);
         if(is_wp_error($user)){
-        	$error_msg = $user->get_error_messages();
-        	tt_json_error(0,strip_tags($error_msg[0]));
+            $error_msg = $user->get_error_messages();
+            tt_json_error(0,strip_tags($error_msg[0]));
         }
-	}
-	else 
-	{
-		$user = wp_get_current_user();
-	}
-	tt_json_response($user);
+    }
+    else
+    {
+        $user = wp_get_current_user();
+    }
+    tt_json_response($user);
 }
+*/
