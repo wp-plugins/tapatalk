@@ -6,7 +6,6 @@ function ttwp_config()
 
     $response = array(
         'version' => $tapatalk->version,
-        'support' => $wp_loaded,
         'wp_version' => $wp_version,
     );
 
