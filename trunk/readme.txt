@@ -1,6 +1,6 @@
 === Tapatalk ===
 Contributors: Tapatalk
-Tags: tapatalk, mobile, api, mobile
+Tapatalk, mobile, forum, iPhone, Android, iOS, phpBB, vBulletin, SMF, IPBoard, XenForo, MyBB, Kunena
 Donate link: http://www.worldvision.org
 Requires at least: 3.3
 Tested up to: 3.5.1
