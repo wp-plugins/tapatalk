@@ -42,7 +42,9 @@ Not at the moment, but we have plan to make it standalone
 Because people love to have choice ;) Your forum users can immediate consume your latest blogs and article within a single app, isn't that nice?
 
 == Screenshots ==
-
+1. screenshot 1
+2. screenshot 2
+3. screenshot 3
 
 == Changelog ==
 
