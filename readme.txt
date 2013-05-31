@@ -1,4 +1,4 @@
-=== Tapatalk ===
+=== Tapatalk for WordPress ===
 Contributors: Tapatalk
 Tags: Tapatalk, mobile, forum, iPhone, Android, iOS, phpBB, vBulletin, SMF, IPBoard, XenForo, MyBB, Kunena
 Donate link: http://www.worldvision.org
