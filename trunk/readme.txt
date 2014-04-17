@@ -1,6 +1,6 @@
-=== Tapatalk ===
+=== Tapatalk for WordPress ===
 Contributors: Tapatalk
-Tapatalk, mobile, forum, iPhone, Android, iOS, phpBB, vBulletin, SMF, IPBoard, XenForo, MyBB, Kunena
+Tags: Tapatalk, mobile, forum, iPhone, Android, iOS, phpBB, vBulletin, SMF, IPBoard, XenForo, MyBB, Kunena
 Donate link: http://www.worldvision.org
 Requires at least: 3.3
 Tested up to: 3.5.1
@@ -42,7 +42,9 @@ Not at the moment, but we have plan to make it standalone
 Because people love to have choice ;) Your forum users can immediate consume your latest blogs and article within a single app, isn't that nice?
 
 == Screenshots ==
-
+1. screenshot 1
+2. screenshot 2
+3. screenshot 3
 
 == Changelog ==
 
