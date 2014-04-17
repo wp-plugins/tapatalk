@@ -3,10 +3,10 @@ Contributors: Tapatalk
 Tags: Tapatalk, mobile, forum, iPhone, Android, iOS, phpBB, vBulletin, SMF, IPBoard, XenForo, MyBB, Kunena
 Donate link: http://www.worldvision.org
 Requires at least: 3.3
-Tested up to: 3.5.1
-Stable tag: 1.0.0
-License: GNU General Public License v2
-License URI: http://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses
+Tested up to: 3.9.0
+Stable tag: 1.0.1
+License: MIT License
+License URI: http://opensource.org/licenses/MIT
 
 Tapatalk for WordPress Plugin enables Tapatalk Community Reader to integrate WordPress Blogs and Forums into a single mobile app.
 

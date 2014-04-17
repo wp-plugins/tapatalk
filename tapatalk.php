@@ -2,7 +2,7 @@
 /*
 Plugin Name: Tapatalk for WordPress
 Description: Tapatalk for WordPress Plugin enables Tapatalk Community Reader to integrate WordPress Blogs and Forums into a single mobile app.
-Version: 1.0.0
+Version: 1.0.1
 Author: Tapatalk
 Author URI: http://www.tapatalk.com/
 Plugin URI: http://www.tapatalk.com/activate_tapatalk.php
@@ -11,22 +11,22 @@ License URI: http://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses
 */
 
 class Tapatalk {
-
-    public $version = '1.0.0';  //plugin's version
-    public $method;             //request method;
-
-    /**
-     * Set some smart defaults to class variables. Allow some of them to be
-     * filtered to allow for early overriding.
-     *
-     * @since tapatalk
-     * @access private
-     * @uses plugin_dir_path() To generate Tapatalk blog api plugin path
-     * @uses plugin_dir_url() To generate Tapatalk blog api plugin url
-     */
-    private function setup_globals()
-    {
-        /** Paths *************************************************************/
+	
+	public $version    = '1.0.1';  //plugin's version
+	public $method; //request method;
+	
+	/**
+	 * Set some smart defaults to class variables. Allow some of them to be
+	 * filtered to allow for early overriding.
+	 *
+	 * @since tapatalk
+	 * @access private
+	 * @uses plugin_dir_path() To generate Tapatalk blog api plugin path
+	 * @uses plugin_dir_url() To generate Tapatalk blog api plugin url
+	 */
+	private function setup_globals() 
+	{
+		/** Paths *************************************************************/
 
         // Setup some base path and URL information
         $this->file       = __FILE__;

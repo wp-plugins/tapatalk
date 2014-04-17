@@ -198,10 +198,10 @@ function ttwp_blog()
         'password'      => post_password_required(),
         'comment_count' => $post->comment_count,
         'category'      => $response_category,
-        'prev'          => $prev_blog->ID,
-        'prev_title'    => $prev_blog->post_title,
-        'next'          => $next_blog->ID,
-        'next_title'    => $next_blog->post_title,
+        'prev'          => isset($prev_blog->ID) ? $prev_blog->ID : 0,
+        'prev_title'    => isset($prev_blog->post_title) ? $prev_blog->post_title : '',
+        'next'          => isset($next_blog->ID) ? $next_blog->ID : 0,
+        'next_title'    => isset($next_blog->post_title) ? $next_blog->post_title : '',
     );
     $response['blog'] = $response_blog;
 
