@@ -2,7 +2,7 @@
 /*
 Plugin Name: Tapatalk for WordPress
 Description: Tapatalk for WordPress Plugin enables Tapatalk Community Reader to integrate WordPress Blogs and Forums into a single mobile app.
-Version: 1.0.1
+Version: 1.0.2
 Author: Tapatalk
 Author URI: http://www.tapatalk.com/
 Plugin URI: http://www.tapatalk.com/activate_tapatalk.php
