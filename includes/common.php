@@ -57,9 +57,10 @@ function tt_process_short_content($str, $length = 200)
 function tt_post_html_clean($str)
 {
     $str = str_replace("&nbsp;", ' ', $str );
-    $str = str_replace("\r\n", '<br />', $str );
-    $str = str_replace(array("\r", "\n"), '<br />', $str );
-    $str = preg_replace('/>\s+</si', '><', $str);
+    $str = str_replace("\r\n", '', $str );
+    $str = str_replace(array("\r", "\n"), '', $str );
+    $str = str_replace("\t", '', $str );
+    //$str = preg_replace('/>\s+</si', '><', $str);
 
     $search = array(
         "/<strong>(.*?)<\/strong>/si",
@@ -69,6 +70,7 @@ function tt_post_html_clean($str)
         "/<img .*?src=\"(.*?)\".*?\/?>/si",
         "/<a .*?href=\"(.*?)\".*?>(.*?)<\/a>/si",
         "/<script( [^>]*)?>([^<]*?)<\/script>/si",
+    	"/<br(.*?)\/?>/si"
     );
 
     $replace = array(
@@ -79,6 +81,7 @@ function tt_post_html_clean($str)
         '[img]$1[/img]',
         '[url=$1]$2[/url]',
         '',
+    	'<br>',
     );
 
     $str = preg_replace($search, $replace, $str);

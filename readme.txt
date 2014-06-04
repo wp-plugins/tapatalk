@@ -4,7 +4,7 @@ Tags: Tapatalk, mobile, forum, iPhone, Android, iOS, phpBB, vBulletin, SMF, IPBo
 Donate link: http://www.worldvision.org
 Requires at least: 3.3
 Tested up to: 3.9.0
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
@@ -48,9 +48,9 @@ Because people love to have choice ;) Your forum users can immediate consume you
 
 == Changelog ==
 
-= 1.0.0 =
+= 1.0.2 =
 
-Initial Release
+fix some bugs
 
 == Upgrade Notice ==
 

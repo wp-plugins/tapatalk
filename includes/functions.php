@@ -81,7 +81,9 @@ function ttwp_blogs()
         setup_postdata($post);
         $authordata = get_userdata($post->post_author);
         $content = get_the_content(false);
-
+		$content = apply_filters( 'the_content', $content );
+		$content = str_replace( ']]>', ']]&gt;', $content );
+		$content = strip_tags($content);
         // get the first image associated with the post
         $image_url = '';
         $args_a = array(
@@ -183,12 +185,15 @@ function ttwp_blog()
 
     $prev_blog = get_adjacent_post();
     $next_blog = get_adjacent_post(false, '', false);
-
+    $content = get_the_content();
+	$content = apply_filters( 'the_content', $content );
+	$content = str_replace( ']]>', ']]&gt;', $content );
+	
     $response_blog = array(
         'blog_id'       => $post->ID,
         'title'         => $post->post_title,
         'timestamp'     => strtotime($post->post_date_gmt),
-        'content'       => tt_post_html_clean(get_the_content(false)),
+        'content'       => tt_post_html_clean($content),
         'author'        => array(
                                'user_id' => $authordata->ID,
                                'name'    => $authordata->display_name,
