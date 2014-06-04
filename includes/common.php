@@ -61,7 +61,7 @@ function tt_post_html_clean($str)
     $str = str_replace(array("\r", "\n"), '', $str );
     $str = str_replace("\t", '', $str );
     //$str = preg_replace('/>\s+</si', '><', $str);
-
+	$str = str_replace('</p>', '<br>', $str);
     $search = array(
         "/<strong>(.*?)<\/strong>/si",
         "/<em>(.*?)<\/em>/si",
