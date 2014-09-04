@@ -8,13 +8,15 @@ Stable tag: 1.0.2
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
-Tapatalk for WordPress Plugin enables Tapatalk Community Reader to integrate WordPress Blogs and Forums into a single mobile app.
+The Tapatalk for WordPress plugin lets you add your WordPress blog to the Tapatalk app (just be sure that your existing forum--on any major community platform--is already on Tapatalk first)
 
 == Description ==
 
-Tapatalk for WordPress is an extension to your existing Tapatalk installation, enable you to add WordPress-powered content into the Tapatalk Community Reader mobile app. Tapatalk is an end-to-end mobile solution for your website that combine content and discussions into a single mobile app. Over 60000 websites have installed and activated Tapatalk.
+Tapatalk for WordPress is an add-on to your existing Tapatalk forum installation. If you have a forum on Tapatalk, then you can add your WordPress content on top of that, so that it too will be available on the Tapatalk mobile app.
 
-Interested to learn more? Download our mobile app or visit our website at http://tapatalk.com
+Tapatalk is an end-to-end mobile solution for your website that combines content and discussions into a single mobile app. Over 60,000 websites have installed and activated Tapatalk.
+
+Like to learn more? Download our mobile app or visit our website at http://tapatalk.com
 
 = Features include: =
 
