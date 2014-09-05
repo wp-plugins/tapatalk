@@ -8,7 +8,7 @@ Stable tag: 1.0.2
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
-The Tapatalk for WordPress plugin lets you add your WordPress blog to the Tapatalk app (just be sure that your existing forum--is already on Tapatalk first)
+The Tapatalk for WordPress plugin lets you add your WordPress blog to your forum on the Tapatalk mobile app.
 
 == Description ==
 
