@@ -142,7 +142,7 @@ function ttwp_blogs()
         );
     }
     unset($post);
-
+    
     $response = array(
         'total' => tt_get_post_count($args['cat'], $tt_timestamp_filter),
         'blogs' => $response_posts,

@@ -139,7 +139,7 @@ function tt_get_post_count($cat = '', $timestemp = 0)
         }
 
         $query .= ' GROUP BY post_status';
-        $count = $wpdb->get_results( $wpdb->prepare( $query, 'post' ), ARRAY_A );
+        $count = $wpdb->get_results( $query, ARRAY_A );
         $stats = array();
         foreach ( get_post_stati() as $state )
             $stats[$state] = 0;
