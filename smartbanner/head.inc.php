@@ -113,38 +113,33 @@ if (preg_match('/googlebot|twitterbot/i', $useragent))
 
 // display smart banner and welcome page
 $app_banner_head = '';
+$app_banner_js_link = $board_url . '/wp-content/plugins/tapatalk/smartbanner/appbanner.js';   
 
-if (file_exists(dirname(__FILE__) . '/appbanner.js') &&
-    file_exists(dirname(__FILE__) . '/app.php') &&
-    file_exists(dirname(__FILE__) . '/appbanner.css'))
-{
-    $app_banner_js_link = $board_url . '/wp-content/plugins/tapatalk/smartbanner/appbanner.js';
+$tapatalk_dir_name = 'wp-content/plugins/tapatalk';    
     
-    $app_banner_head = '
-            <script type="text/javascript">
-                var is_byo             = 0;
-                var is_mobile_skin     = '.$is_mobile_skin.';
-                var app_ios_id         = "'.$app_ios_id.'";
-                var app_android_id     = "'.tt_html_escape($app_android_id).'";
-                var app_kindle_url     = "'.tt_html_escape(urlencode($app_kindle_url),true).'";
-                var app_banner_message = "'.tt_html_escape($app_banner_message,true).'";
-                var app_forum_name     = "'.tt_html_escape($app_forum_name,true).'";
-                var app_location_url   = "'.tt_html_escape($app_location_url,true).'";
-                var app_board_url      = "'.tt_html_escape($board_url,true).'";
-                var mobiquo_extension  = "'.tt_html_escape($mobiquo_extension,true).'";
-                var functionCallAfterWindowLoad = '.$functionCallAfterWindowLoad.';
-                
-                var app_api_key        = "";
-                var app_referer        = "'.tt_html_escape($app_referer,true).'";
-                var tapatalk_dir_name  = "wp-content/plugins/tapatalk";
-                var app_welcome_enable = 1;
-                var app_banner_enable  = 1;
-            </script>
-            <script src="' . tt_html_escape($app_banner_js_link) . '" type="text/javascript"></script>
-            <!-- Tapatalk Banner head end-->
-        ';
-}
-
+$app_banner_head = '
+        <script type="text/javascript">
+            var is_byo             = 0;
+            var is_mobile_skin     = '.$is_mobile_skin.';
+            var app_ios_id         = "'.$app_ios_id.'";
+            var app_android_id     = "'.tt_html_escape($app_android_id).'";
+            var app_kindle_url     = "'.tt_html_escape(urlencode($app_kindle_url),true).'";
+            var app_banner_message = "'.tt_html_escape($app_banner_message,true).'";
+            var app_forum_name     = "'.tt_html_escape($app_forum_name,true).'";
+            var app_location_url   = "'.tt_html_escape($app_location_url,true).'";
+            var app_board_url      = "'.tt_html_escape($board_url,true).'";
+            var mobiquo_extension  = "'.tt_html_escape($mobiquo_extension,true).'";
+            var functionCallAfterWindowLoad = '.$functionCallAfterWindowLoad.';
+            
+            var app_api_key        = "";
+            var app_referer        = "'.tt_html_escape($app_referer,true).'";
+            var tapatalk_dir_name  = "wp-content/plugins/tapatalk";
+            var app_welcome_enable = 1;
+            var app_banner_enable  = 1;
+        </script>
+        <script src="' . tt_html_escape($app_banner_js_link) . '" type="text/javascript"></script>
+        <!-- Tapatalk Banner head end-->
+    ';
 $app_head_include .= $app_banner_head;
 
 function tt_getenv($key)

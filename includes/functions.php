@@ -64,7 +64,7 @@ function ttwp_blogs()
         'ignore_sticky_posts'   => true,
     );
 
-    $tt_timestamp_filter = isset($_GET['newer']) ? intval($_GET['newer']) : 0;
+    $tt_timestamp_filter = isset($_GET['newer']) ? intval($_GET['newer']) : 1;
 
     if ($tt_timestamp_filter)
     {

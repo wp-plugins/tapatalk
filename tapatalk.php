@@ -11,6 +11,7 @@ License URI: http://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses
 */
 
 class Tapatalk {
+
     
     public $version    = '1.1.0';  //plugin's version
     public $method; //request method;
