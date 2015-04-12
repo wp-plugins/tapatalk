@@ -4,7 +4,7 @@ Tags: Tapatalk, mobile, forum, iPhone, Android, iOS, phpBB, vBulletin, SMF, IPBo
 Donate link: http://www.worldvision.org
 Requires at least: 3.3
 Tested up to: 4.1.1
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
@@ -41,7 +41,7 @@ Not at the moment, but we have plan to make it standalone
 
 = Why do I need a mobile app while WordPress has provide fantastic support for mobile web? =
 
-Because people love to have choice ;) Your forum users can immediate consume your latest blogs and article within a single app, isn't that nice?
+Because people love to have choice ;) Your site users can immediate consume your latest blogs and article within a single app, isn't that nice?
 
 == Screenshots ==
 1. screenshot 1
@@ -49,6 +49,16 @@ Because people love to have choice ;) Your forum users can immediate consume you
 3. screenshot 3
 
 == Changelog ==
+
+= 1.1.1 =
+
+Added Tapatalk settings to control the display of welcome screen page and smartbanner
+
+
+= 1.1.0 =
+
+Added welcome screen page and smartbanner
+
 
 = 1.0.2 =
 

@@ -2,7 +2,7 @@
 /*
 Plugin Name: Tapatalk for WordPress
 Description: Tapatalk for WordPress Plugin enables Tapatalk Community Reader to integrate WordPress Blogs and Forums into a single mobile app.
-Version: 1.1.0
+Version: 1.1.1
 Author: Tapatalk
 Author URI: http://www.tapatalk.com/
 Plugin URI: http://www.tapatalk.com/activate_tapatalk.php
@@ -12,10 +12,14 @@ License URI: http://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses
 
 class Tapatalk {
 
-    
-    public $version    = '1.1.0';  //plugin's version
+    public $version    = '1.1.1';  //plugin's version
     public $method; //request method;
-    
+    public $file;
+    public $basename;
+    public $plugin_dir;
+    public $wp_dir;
+    public $includes_dir;
+
     /**
      * Set some smart defaults to class variables. Allow some of them to be
      * filtered to allow for early overriding.
@@ -59,6 +63,8 @@ class Tapatalk {
      */
     public function steup_actions()
     {
+        $this->setup_globals();
+        require_once $this->plugin_dir.'options/tapatalk_option.php';
         add_action('wp', array( $this, 'run' ));
         remove_action('bbp_head', 'tapatalkdetect');
         remove_action('bbp_footer','tapatalk_footer');
@@ -109,22 +115,24 @@ class Tapatalk {
 
         exit();
     }
-    
+
     public function tapatalkdetect()
     {
         $app_head_include = '';
         if(file_exists($this->plugin_dir . 'smartbanner/head.inc.php' ))
         {
+            $tapatalk_general = get_option('tapatalk_general');
             $api_key =  '';
             $app_forum_name = get_option('blogname');;
-            
+            $tapatalk_dir_url = "./tapatalk";
             $board_url = site_url();
-                        
-            require ($this->plugin_dir . 'smartbanner/head.inc.php');            
+            $app_ads_enable = isset($tapatalk_general['mobile_welcome_screen']) && $tapatalk_general['mobile_welcome_screen'];
+            $app_banner_enable = isset($tapatalk_general['mobile_smart_banner']) && $tapatalk_general['mobile_smart_banner'];
+            require ($this->plugin_dir . 'smartbanner/head.inc.php');
         }
         echo $app_head_include;
     }
-    
+
     public function tapatalkfooter()
     {
         echo '<!-- Tapatalk Detect body start --> 
