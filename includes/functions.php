@@ -64,7 +64,7 @@ function ttwp_blogs()
         'ignore_sticky_posts'   => true,
     );
 
-    $tt_timestamp_filter = isset($_GET['newer']) ? intval($_GET['newer']) : 1;
+    $tt_timestamp_filter = isset($_GET['newer']) ? intval($_GET['newer']) : 0;
 
     if ($tt_timestamp_filter)
     {
@@ -81,9 +81,9 @@ function ttwp_blogs()
         setup_postdata($post);
         $authordata = get_userdata($post->post_author);
         $content = get_the_content(false);
-		$content = apply_filters( 'the_content', $content );
-		$content = str_replace( ']]>', ']]&gt;', $content );
-		$content = strip_tags($content);
+        $content = apply_filters( 'the_content', $content );
+        $content = str_replace( ']]>', ']]&gt;', $content );
+        $content = strip_tags($content);
         // get the first image associated with the post
         $image_url = '';
         $args_a = array(
@@ -137,7 +137,7 @@ function ttwp_blogs()
                                ),
             'status'        => $post->post_status,
             'password'      => post_password_required(),
-            'comment_count' => $post->comment_count,
+            'comment_count' => get_comments('count=1&type=comment&status=approve&post_id='.$post->ID),
             'category'      => $response_category,
         );
     }
@@ -182,13 +182,13 @@ function ttwp_blog()
         );
     }
 
-
     $prev_blog = get_adjacent_post();
     $next_blog = get_adjacent_post(false, '', false);
     $content = get_the_content();
-	$content = apply_filters( 'the_content', $content );
-	$content = str_replace( ']]>', ']]&gt;', $content );
-	
+    $content = apply_filters( 'the_content', $content );
+    $content = str_replace( ']]>', ']]&gt;', $content );
+    $comment_count = get_comments('count=1&type=comment&status=approve&post_id='.$blog_id);
+
     $response_blog = array(
         'blog_id'       => $post->ID,
         'title'         => $post->post_title,
@@ -201,7 +201,7 @@ function ttwp_blog()
                            ),
         'status'        => $post->post_status,
         'password'      => post_password_required(),
-        'comment_count' => $post->comment_count,
+        'comment_count' => $comment_count,
         'category'      => $response_category,
         'prev'          => isset($prev_blog->ID) ? $prev_blog->ID : 0,
         'prev_title'    => isset($prev_blog->post_title) ? $prev_blog->post_title : '',
@@ -210,7 +210,7 @@ function ttwp_blog()
     );
     $response['blog'] = $response_blog;
 
-    if ($post->comment_count > 0 && isset($_GET['perpage']) && $_GET['perpage'] > 0)
+    if ($comment_count && isset($_GET['perpage']) && $_GET['perpage'] > 0)
     {
         $response_comments = array();
 
@@ -219,9 +219,12 @@ function ttwp_blog()
             'status'    => 'approve',           // approve/hold/spam/trash
             'order'     => isset($_GET['order']) && $_GET['order'] == 'asc' ? 'ASC' : 'DESC',
             'number'    => $_GET['perpage'],
+            'type'      => 'comment',
             'offset'    => 0,
         );
         $comments = get_comments($args);
+
+
 
         foreach($comments as $comment)
         {
@@ -251,11 +254,12 @@ function ttwp_comments()
     if (!isset($_GET['blog_id']) || empty($_GET['blog_id']))
         tt_json_error(-32602, '', array('file' => __FILE__, 'line' => __LINE__, 'params' => $_GET));
 
-    if ($total = get_comments('count=1&post_id='.$_GET['blog_id']))
+    if ($total = get_comments('count=1&type=comment&status=approve&post_id='.$_GET['blog_id']))
     {
         $args = array(
             'post_id'   => $_GET['blog_id'],
             'status'    => 'approve',           // approve/hold/spam/trash
+            'type'      => 'comment',
             'order'     => isset($_GET['order']) ? ($_GET['order'] == 'asc' ? 'ASC' : 'DESC') : get_option('comment_order'),
             'number'    => isset($_GET['perpage']) ? $_GET['perpage'] : 20,
             'offset'    => isset($_GET['page']) ? ($_GET['page'] - 1) * (isset($_GET['perpage']) ? $_GET['perpage'] : 20) : 0,
