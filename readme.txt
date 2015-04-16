@@ -13,10 +13,11 @@ The Tapatalk for WordPress plugin lets you add your WordPress blog to your forum
 == Description ==
 
 Tapatalk connects you to people who share your own passions and interests. Millions of members are online now, sharing their expert opinions with others who can truly appreciate them. Tapatalk is different from traditional social media--the people you meet will be as excited by your hobby as you are.
-* Easily find an area that you're into: cars, tech, fashion, sports, and more
-* Follow topics and share with like-minded people
-* Post ideas/pics/videos and get feedback from fellow experts
-* Meet + chat with other members just like you
+
+* Easily find an area that you're into: cars, tech, fashion, sports, and more  
+* Follow topics and share with like-minded people  
+* Post ideas/pics/videos and get feedback from fellow experts  
+* Meet + chat with other members just like you  
 
 Join today to see what others are saying about your interests!
 
