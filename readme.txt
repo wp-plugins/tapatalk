@@ -12,11 +12,13 @@ The Tapatalk for WordPress plugin lets you add your WordPress blog to your forum
 
 == Description ==
 
-Tapatalk for WordPress is an add-on to your existing Tapatalk forum installation. If you have a forum on Tapatalk, then you can add your WordPress content on top of that, so that it too will be available on the Tapatalk mobile app.
+Tapatalk connects you to people who share your own passions and interests. Millions of members are online now, sharing their expert opinions with others who can truly appreciate them. Tapatalk is different from traditional social media--the people you meet will be as excited by your hobby as you are.
+* Easily find an area that you're into: cars, tech, fashion, sports, and more
+* Follow topics and share with like-minded people
+* Post ideas/pics/videos and get feedback from fellow experts
+* Meet + chat with other members just like you
 
-Tapatalk is an end-to-end mobile solution for your website that combines content and discussions into a single mobile app. Over 60,000 websites have installed and activated Tapatalk.
-
-Like to learn more? Download our mobile app or visit our website at http://tapatalk.com
+Join today to see what others are saying about your interests!
 
 = Features include: =
 
