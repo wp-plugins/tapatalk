@@ -47,6 +47,7 @@ Because people love to have choice ;) Your site users can immediate consume your
 1. screenshot 1
 2. screenshot 2
 3. screenshot 3
+3. screenshot 4
 
 == Changelog ==
 
