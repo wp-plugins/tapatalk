@@ -54,6 +54,11 @@ Because people love to have choice ;) Your site users can immediate consume your
 
 == Changelog ==
 
+= 1.1.2 =
+
+Added Tapatalk API key in setting. Supported app indexing in blog page. And fixed some content display issues.
+
+
 = 1.1.1 =
 
 Added Tapatalk settings to control the display of welcome screen page and smartbanner

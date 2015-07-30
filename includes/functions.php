@@ -80,24 +80,28 @@ function ttwp_blogs()
     {
         setup_postdata($post);
         $authordata = get_userdata($post->post_author);
-        $content = get_the_content(false);
-        $content = apply_filters( 'the_content', $content );
+        $content_ori = get_the_content(false);
+        $content = apply_filters( 'the_content', $content_ori );
         $content = str_replace( ']]>', ']]&gt;', $content );
         $content = strip_tags($content);
+
         // get the first image associated with the post
         $image_url = '';
-        $args_a = array(
-            'numberposts' => 1,
-            'order'=> 'ASC',
-            'post_mime_type' => 'image',
-            'post_parent' => $post->ID,
-            'post_type' => 'attachment'
-        );
-        $attachments = get_posts($args_a);
-        if ($attachments)
-        {
+        $first_image = null;
+        $args = array( 'post_type' => 'attachment', 'posts_per_page' => -1, 'order'=> 'ASC', 'post_mime_type' => 'image', 'post_parent' => $post->ID );
+        $attachments = get_posts($args);
+        foreach ($attachments as $attachment){
+            if (strstr($content_ori, $attachment->guid)){
+                $first_image = $attachment;
+                break;
+            }
+        }
+        if (empty($first_image) && isset($attachments[0]) && !empty($attachments[0])){
             $first_image = $attachments[0];
+        }
 
+        if (!empty($first_image))
+        {
             switch ($image_preview_type)
             {
                 case 'thumbnail':
@@ -126,7 +130,7 @@ function ttwp_blogs()
 
         $response_posts[] = array(
             'blog_id'       => $post->ID,
-            'title'         => $post->post_title,
+            'title'         => tt_post_html_clean($post->post_title),
             'timestamp'     => strtotime($post->post_date_gmt),
             'preview'       => tt_process_short_content($content),
             'preview_image' => $image_url,
@@ -191,7 +195,7 @@ function ttwp_blog()
 
     $response_blog = array(
         'blog_id'       => $post->ID,
-        'title'         => $post->post_title,
+        'title'         => tt_post_html_clean($post->post_title),
         'timestamp'     => strtotime($post->post_date_gmt),
         'content'       => tt_post_html_clean($content),
         'author'        => array(
@@ -204,9 +208,9 @@ function ttwp_blog()
         'comment_count' => $comment_count,
         'category'      => $response_category,
         'prev'          => isset($prev_blog->ID) ? $prev_blog->ID : 0,
-        'prev_title'    => isset($prev_blog->post_title) ? $prev_blog->post_title : '',
+        'prev_title'    => isset($prev_blog->post_title) ? tt_post_html_clean($prev_blog->post_title) : '',
         'next'          => isset($next_blog->ID) ? $next_blog->ID : 0,
-        'next_title'    => isset($next_blog->post_title) ? $next_blog->post_title : '',
+        'next_title'    => isset($next_blog->post_title) ? tt_post_html_clean($next_blog->post_title) : '',
     );
     $response['blog'] = $response_blog;
 

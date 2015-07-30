@@ -41,7 +41,9 @@ function tt_get_avatar_by_uid($uid)
 {
     if (empty($uid)) return '';
 
-    return preg_replace("/^.*src='([^']*?)'.*$/", '$1', get_avatar($uid));
+    $avatar = preg_replace("/^.*src=['\"]([^'\"]*?)['\"].*$/", '$1', get_avatar($uid));
+    $avatar = html_entity_decode($avatar, ENT_QUOTES, 'UTF-8');
+    return $avatar;
 }
 
 function tt_process_short_content($str, $length = 200)
@@ -73,7 +75,7 @@ function tt_post_html_clean($str)
         "/<img .*?src=\"(.*?)\".*?\/?>/si",
         "/<a .*?href=\"(.*?)\".*?>(.*?)<\/a>/si",
         "/<script( [^>]*)?>([^<]*?)<\/script>/si",
-    	"/<br(.*?)\/?>/si"
+        "/<br(.*?)\/?>/si"
     );
 
     $replace = array(
@@ -84,12 +86,19 @@ function tt_post_html_clean($str)
         '[img]$1[/img]',
         '[url=$1]$2[/url]',
         '',
-    	'<br>',
+        '<br>',
     );
 
     $str = preg_replace($search, $replace, $str);
     $str = strip_tags($str, '<br><i><b><u>');
-
+    $str = preg_replace('/&#038;/', '&', $str);
+    $str = preg_replace('/&#8211;/', "-", $str);
+    $str = preg_replace('/&#8212;/', '-', $str);
+    $str = preg_replace('/&#8216;/', "'", $str);
+    $str = preg_replace('/&#8217;/', "'", $str);
+    $str = preg_replace('/&#8218;/', "‚", $str);
+    $str = preg_replace('/&#8220;/', '"', $str);
+    $str = preg_replace('/&#8221;/', '"', $str);
     return $str;
 }
 

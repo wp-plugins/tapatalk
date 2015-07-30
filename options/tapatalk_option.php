@@ -89,7 +89,7 @@ class TapatalkGeneral
                 "id" => "mobile_welcome_screen",
                 "group" => "tapatalk_general",
                 "options" => array(
-                    "desc" => 'Tapatalk will show a one-time welcome screen to mobile web users informing them to download and view your site in the free app. This screen will contain your site branding only along with a download button.',
+                    "desc" => 'Tapatalk will show a one-time welcome screen to mobile web users informing them to download and view your site in the free app.',
                 ),
             )
         );
@@ -104,8 +104,23 @@ class TapatalkGeneral
                 "id" => "mobile_smart_banner",
                 "group" => "tapatalk_general",
                 "options" => array(
-                    "desc" => 'Tapatalk will show a smart banner to mobile users, when your site is viewed by a mobile web browser. The smart banner will contain two buttons: "Open in app" and "Install".',
+                    "desc" => 'Tapatalk will show a smart banner to mobile users, when your site is viewed by a mobile web browser.',
                 ),
+            )
+        );
+
+        add_settings_field(
+            'api_key',
+            'Tapatalk Key',
+            array($this->page_common, 'create_section_for_text'),
+            'tapatalk_general_admin',
+            'tapatalk_general',
+            array(
+                "desc" => "This field is mandatory. Please input the key provided in tapatalk site owner account.",
+                "id" => "api_key",
+                "group" => "tapatalk_general",
+                "title" => 'Tapatalk API Key',
+                "std" => '',
             )
         );
     }

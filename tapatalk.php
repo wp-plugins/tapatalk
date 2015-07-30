@@ -2,7 +2,7 @@
 /*
 Plugin Name: Tapatalk for WordPress
 Description: Tapatalk for WordPress Plugin enables Tapatalk Community Reader to integrate WordPress Blogs and Forums into a single mobile app.
-Version: 1.1.1
+Version: 1.1.2
 Author: Tapatalk
 Author URI: http://www.tapatalk.com/
 Plugin URI: http://www.tapatalk.com/activate_tapatalk.php
@@ -12,7 +12,7 @@ License URI: http://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses
 
 class Tapatalk {
 
-    public $version    = '1.1.1';  //plugin's version
+    public $version    = '1.1.2';  //plugin's version
     public $method; //request method;
     public $file;
     public $basename;
@@ -50,8 +50,8 @@ class Tapatalk {
     private function includes()
     {
         /** Core **************************************************************/
-        require( $this->includes_dir . 'common.php' );
-        require( $this->includes_dir . 'functions.php' );
+        require_once( $this->includes_dir . 'common.php' );
+        require_once( $this->includes_dir . 'functions.php' );
     }
     
     /**
@@ -122,10 +122,17 @@ class Tapatalk {
         if(file_exists($this->plugin_dir . 'smartbanner/head.inc.php' ))
         {
             $tapatalk_general = get_option('tapatalk_general');
-            $api_key =  '';
+            $api_key = isset($tapatalk_general['api_key']) ? $tapatalk_general['api_key'] : '';
             $app_forum_name = get_option('blogname');;
             $tapatalk_dir_url = "./tapatalk";
             $board_url = site_url();
+            $pid = get_the_ID();
+            $app_location_url = preg_replace('/https?:\/\//i', 'tapatalk://', $board_url);
+            $app_location_url .= "?location=blog";
+            if (!empty($pid)){
+                $app_location_url .= "&pid=$pid";
+                $page_type = 'post';
+            }
             $app_ads_enable = isset($tapatalk_general['mobile_welcome_screen']) && $tapatalk_general['mobile_welcome_screen'];
             $app_banner_enable = isset($tapatalk_general['mobile_smart_banner']) && $tapatalk_general['mobile_smart_banner'];
             require ($this->plugin_dir . 'smartbanner/head.inc.php');

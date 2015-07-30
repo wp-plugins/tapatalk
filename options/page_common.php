@@ -66,6 +66,22 @@ class PageCommon{
         $this->create_closing_tag($value);
     }
 
+    public function create_section_for_text($value) {
+        $this->create_opening_tag($value);
+        $text = "";
+        if (isset($value['group']) && $this->get_group_options_value($value['group'], $value['id'])){
+            $text = $this->get_group_options_value($value['group'], $value['id']);
+        }else if (get_option($value['id'])) {
+            $text = get_option($value['id']);
+        }
+        else {
+            $text = $value['std'];
+        }
+
+        echo '<input style="width:90%" type="text" id="'.$value['id'].'" placeholder="'.$value['title'].'" name="'.$value['group']."[".$value['id'].']" value="'.$text.'" />'."\n";
+        $this->create_closing_tag($value);
+    }
+
     public function get_group_options_value($group, $index){
         $group_value = get_option($group);
         return isset($group_value[$index]) ? $group_value[$index] : false;

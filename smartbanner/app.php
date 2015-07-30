@@ -36,14 +36,15 @@ $image_list = array(
     'iphone-v-bg.jpg', 'iphone-h-bg.jpg',
     'ipad-v-bg.jpg', 'ipad-h-bg.jpg',
     'android-v-bg.jpg', 'android-h-bg.jpg',
-    'close.png', 'logo.png'
+    'close.png', 'logo.png',
+    'tapatalk-banner-logo.png', 'star.png'
 );
 
 foreach($image_list as $image)
 {
     if (!file_exists('smartbanner/images/'.$image))
     {
-        $banner_image_path = 'https://s3.amazonaws.com/welcome-screen/images/';
+        $banner_image_path = 'http://dw0bg18yn71wc.cloudfront.net/images/';
     }
 }
 
