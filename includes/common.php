@@ -111,7 +111,24 @@ function tt_add_timestamp_filter($where, $object = '')
 
     if ( $tt_timestamp_filter > 0 )
         $where .= " AND UNIX_TIMESTAMP($wpdb->posts.post_date_gmt) > $tt_timestamp_filter ";
+    return $where;
+}
 
+function tt_add_post_type_filter($where, $object = '')
+{
+    global $wpdb, $wp, $tt_post_types;
+
+    if ( empty( $object ) )
+        return $where;
+
+    if ( !empty($tt_post_types)){
+        $post_types = "'".implode("','", $tt_post_types)."'";
+		if (preg_match("/$wpdb->posts.post_type\s*?=\s*?['\"]post['\"]/", $where)){
+			$where = preg_replace("/$wpdb->posts.post_type\s*?=\s*?['\"]post['\"]/", "$wpdb->posts.post_type in ($post_types)", $where);
+		} else {
+			$where .= " AND $wpdb->posts.post_type in ($post_types)";
+		}
+    }
     return $where;
 }
 

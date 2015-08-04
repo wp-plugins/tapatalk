@@ -1,25 +1,24 @@
-=== Tapatalk for WordPress ===
+=== Tapatalk for Wordpress - Free Mobile App for Forums and Blogs ===
 Contributors: Tapatalk
-Tags: Tapatalk, mobile, forum, iPhone, Android, iOS, phpBB, vBulletin, SMF, IPBoard, XenForo, MyBB, Kunena
+Tags: android, forum, iOS, ip.board, iphone, kunena, mobile, mybb, phpBB, smf, Tapatalk,vBulletin, xenforo
 Donate link: http://www.worldvision.org
 Requires at least: 3.3
-Tested up to: 4.1.1
-Stable tag: 1.1.1
+Tested up to: 4.2.4
+Stable tag: 1.1.3
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
-The Tapatalk for WordPress plugin lets you add your WordPress blog to your forum on the Tapatalk mobile app.
+Put your blog in front of millions of Tapatalkers. Works with both standalone blogs, and forum-integrated blogs.
 
 == Description ==
 
-Tapatalk connects you to people who share your own passions and interests. Millions of members are online now, sharing their expert opinions with others who can truly appreciate them. Tapatalk is different from traditional social media--the people you meet will be as excited by your hobby as you are.
+Tapatalk is a free, native mobile app that renders and optimizes your community content for mobile devices. Its completely free to mobile-enable your site and takes only minutes to activate!
 
-* Easily find an area that you're into: cars, tech, fashion, sports, and more  
-* Follow topics and share with like-minded people  
-* Post ideas/pics/videos and get feedback from fellow experts  
-* Meet + chat with other members just like you  
+* Increase Engagement: Let your blog viewers read and interact with your content while mobile. Push alerts can instantly notify followers when you publish a post, while Feed Integration brings your content front and center to all your followers.  
+* Monetize content on mobile: enjoy the same eCPMs for your forum and blog content. We're currently paying an eCPM of $1.50 in the U.S., $1.00 in DE, CA, GB, NZ, AU, and up to $0.75 in some other European Countries at this time.  
+* Improved SEO: Google App Indexing prioritizes Tapatalk's app-based content, boosting your site's ranking.  
+* Broaden Your Audience: We're feature the best blogs in order to get more eyeballs in front of your content. We are looking for a few marquee partners at initial launch to be featured--just let us know if you'd like your blog to be highlighted  
 
-Join today to see what others are saying about your interests!
 
 = Features include: =
 
@@ -34,25 +33,32 @@ Join today to see what others are saying about your interests!
 
 == Frequently Asked Questions ==
 
-= Who should install this plugin? =
+= Who is this plugin for? =
 
-Website who has Tapatalk activated for the community/forums
+Any blogger and/or forum owner who wants to increase their exposure to enthusiast audiences. Anyone who cares about monetization on mobile.
 
-= I don't have a forum / community, can I still use Tapatalk for WordPress =
+= Will this plugin work if I don't have a forum? =
 
-Not at the moment, but we have plan to make it standalone
+Yes! We are happy to have released the standalone product :)
 
-= Why do I need a mobile app while WordPress has provide fantastic support for mobile web? =
+= Won't people just read my blog on the mobile web? =
 
-Because people love to have choice ;) Your site users can immediate consume your latest blogs and article within a single app, isn't that nice?
+Sure! Some will, but there are millions of people on Tapatalk right now. Well over half of peoples' time on their phones is spent in apps, not on the web, too.
 
 == Screenshots ==
-1. screenshot 1
-2. screenshot 2
-3. screenshot 3
-3. screenshot 4
+1. Find your blog.
+2. Your Blog Home Page.
+3. Selecting categories.
+4. Viewing a blog post.
+5. Share a blog post to social network.
+6. Manage your following blogs.
 
 == Changelog ==
+
+= 1.1.3 =
+
+Bug fix and plugin readme file update
+
 
 = 1.1.2 =
 

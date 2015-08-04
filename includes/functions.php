@@ -55,7 +55,7 @@ function ttwp_category()
 
 function ttwp_blogs()
 {
-    global $wp_query, $post, $wpdb, $tt_timestamp_filter;
+    global $wp_query, $post, $wpdb, $tt_timestamp_filter, $tt_post_types;
 
     $args = array(
         'offset'                => isset($_GET['page']) ? ($_GET['page'] - 1) * (isset($_GET['perpage']) ? $_GET['perpage'] : 20) : 0,
@@ -69,6 +69,11 @@ function ttwp_blogs()
     if ($tt_timestamp_filter)
     {
         add_filter('posts_where', 'tt_add_timestamp_filter', 10, 2);
+    }
+
+    if (post_type_exists('xda-external-link')){
+        $tt_post_types = array('post', 'xda-external-link');
+        add_filter('posts_where', 'tt_add_post_type_filter', 10, 2);
     }
 
     $myposts = $wp_query->query($args);
@@ -95,9 +100,6 @@ function ttwp_blogs()
                 $first_image = $attachment;
                 break;
             }
-        }
-        if (empty($first_image) && isset($attachments[0]) && !empty($attachments[0])){
-            $first_image = $attachments[0];
         }
 
         if (!empty($first_image))
@@ -128,7 +130,7 @@ function ttwp_blogs()
             );
         }
 
-        $response_posts[] = array(
+        $response_post = array(
             'blog_id'       => $post->ID,
             'title'         => tt_post_html_clean($post->post_title),
             'timestamp'     => strtotime($post->post_date_gmt),
@@ -144,6 +146,12 @@ function ttwp_blogs()
             'comment_count' => get_comments('count=1&type=comment&status=approve&post_id='.$post->ID),
             'category'      => $response_category,
         );
+
+        if ($post->post_type == 'xda-external-link'){
+            $response_post['type'] = 'link';
+            $response_post['link'] = html_entity_decode(get_post_meta($post->ID, 'wpcf-link', true), ENT_QUOTES, 'UTF-8');
+        }
+        $response_posts[] =$response_post;
     }
     unset($post);
     
@@ -159,16 +167,19 @@ function ttwp_blog()
 {
     global $post;
 
-    if (!isset($_GET['blog_id']) || empty($_GET['blog_id']))
-        tt_json_error(-32602, '', array('file' => __FILE__, 'line' => __LINE__, 'params' => $_GET));
+    $file = substr(__FILE__, stripos(__FILE__, 'tapatalk'));
+    if (!isset($_GET['blog_id']) || empty($_GET['blog_id'])){
+        tt_json_error(-32602, '', array('file' => $file, 'line' => __LINE__, 'params' => $_GET));
+    }
 
     $response = array();
 
     $blog_id = intval($_GET['blog_id']);
     $post = get_post($blog_id);
 
-    if (empty($post) || empty($post->ID))
-        tt_json_error(-32602, '', array('file' => __FILE__, 'line' => __LINE__, 'params' => $_GET));
+    if (empty($post) || empty($post->ID)){
+        tt_json_error(-32602, '', array('file' => $file, 'line' => __LINE__, 'params' => $_GET));
+    }
 
     $post->post_content = preg_replace('/<!--more(.*?)?-->/', '', $post->post_content);
     setup_postdata($post);
@@ -212,6 +223,12 @@ function ttwp_blog()
         'next'          => isset($next_blog->ID) ? $next_blog->ID : 0,
         'next_title'    => isset($next_blog->post_title) ? tt_post_html_clean($next_blog->post_title) : '',
     );
+
+    if ($post->post_type == 'xda-external-link'){
+        $response_blog['type'] = 'link';
+        $response_blog['link'] = html_entity_decode(get_post_meta($post->ID, 'wpcf-link', true), ENT_QUOTES, 'UTF-8');
+    }
+
     $response['blog'] = $response_blog;
 
     if ($comment_count && isset($_GET['perpage']) && $_GET['perpage'] > 0)
@@ -255,8 +272,10 @@ function ttwp_comments()
 {
     $response_comments = array();
 
-    if (!isset($_GET['blog_id']) || empty($_GET['blog_id']))
-        tt_json_error(-32602, '', array('file' => __FILE__, 'line' => __LINE__, 'params' => $_GET));
+    $file = substr(__FILE__, stripos(__FILE__, 'tapatalk'));
+    if (!isset($_GET['blog_id']) || empty($_GET['blog_id'])){
+        tt_json_error(-32602, '', array('file' => $file, 'line' => __LINE__, 'params' => $_GET));
+    }
 
     if ($total = get_comments('count=1&type=comment&status=approve&post_id='.$_GET['blog_id']))
     {
