@@ -2,7 +2,7 @@
 /*
 Plugin Name: Tapatalk for WordPress
 Description: Tapatalk for WordPress Plugin enables Tapatalk Community Reader to integrate WordPress Blogs and Forums into a single mobile app.
-Version: 1.1.3
+Version: 1.1.4
 Author: Tapatalk
 Author URI: http://www.tapatalk.com/
 Plugin URI: https://tapatalk.com/start-here.php
@@ -12,7 +12,7 @@ License URI: http://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses
 
 class Tapatalk {
 
-    public $version    = '1.1.3';  //plugin's version
+    public $version    = '1.1.4';  //plugin's version
     public $method; //request method;
     public $file;
     public $basename;
@@ -129,6 +129,7 @@ class Tapatalk {
             $pid = get_the_ID();
             $app_location_url = preg_replace('/https?:\/\//i', 'tapatalk://', $board_url);
             $app_location_url .= "?location=blog";
+            $twitterfacebook_card_enabled = isset($tapatalk_general['facebook_twitter_deep_link']) ? $tapatalk_general['facebook_twitter_deep_link'] : false;
             if (!empty($pid)){
                 $app_location_url .= "&pid=$pid";
                 $page_type = 'post';

@@ -4,7 +4,7 @@ Tags: android, forum, iOS, ip.board, iphone, kunena, mobile, mybb, phpBB, smf, T
 Donate link: http://www.worldvision.org
 Requires at least: 3.3
 Tested up to: 4.2.4
-Stable tag: 1.1.3
+Stable tag: 1.1.4
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
@@ -54,6 +54,10 @@ Sure! Some will, but there are millions of people on Tapatalk right now. Well ov
 6. Manage your following blogs.
 
 == Changelog ==
+
+= 1.1.4 =
+
+Add Facebook and Twitter deep linking option
 
 = 1.1.3 =
 

@@ -70,6 +70,7 @@ class TapatalkGeneral
         $this->add_default_value('tapatalk_general', array(
             'mobile_welcome_screen' => false,
             'mobile_smart_banner' => true,
+            'facebook_twitter_deep_link' => true,
         ));
 
         add_settings_section(
@@ -110,6 +111,21 @@ class TapatalkGeneral
         );
 
         add_settings_field(
+            'facebook_twitter_deep_link',
+            'Facebook and Twitter Deep Linking',
+            array($this->page_common, 'create_section_for_checkbox'), 
+            'tapatalk_general_admin',
+            'tapatalk_general',
+            array(
+                "id" => "facebook_twitter_deep_link",
+                "group" => "tapatalk_general",
+                "options" => array(
+                    "desc" => 'Allow your members to open the same blog in Tapatalk from your Facebook post / Twitter tweet.',
+                ),
+            )
+        );
+
+        add_settings_field(
             'api_key',
             'Tapatalk Key',
             array($this->page_common, 'create_section_for_text'),
@@ -133,7 +149,7 @@ class TapatalkGeneral
     public function sanitize( $input )
     {
         if (empty($input)) return $input;
-        $bool_val = array('mobile_welcome_screen', 'mobile_smart_banner');
+        $bool_val = array('mobile_welcome_screen', 'mobile_smart_banner', 'facebook_twitter_deep_link');
         $int_val = array();
         foreach ($input as $key => $value){
             if (in_array($key, $bool_val)){
